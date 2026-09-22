@@ -4,175 +4,258 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Miquéias — Desenvolvedor</title>
+<meta name="description" content="Portfólio de Miquéias Rodrigues Ribeiro — Desenvolvedor Full Stack especializado em sistemas críticos e soluções reais.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink: #14201d;
-    --paper: #f2f0e8;
-    --paper-dim: #e6e3d8;
-    --teal: #0c3d38;
-    --teal-soft: #235c53;
-    --pulse: #c8402f;
-    --line: rgba(20,32,29,0.14);
-    --mono: 'IBM Plex Mono', monospace;
-    --sans: 'IBM Plex Sans', sans-serif;
-    --serif: 'Newsreader', serif;
+    --bg: #0a0e17;
+    --bg-card: #1e293b;
+    --bg-card-hover: #263348;
+    --text: #e2e8f0;
+    --text-dim: #94a3b8;
+    --green: #00ff41;
+    --cyan: #00d4ff;
+    --red: #f43f5e;
+    --border: #334155;
+    --border-glow: rgba(0,255,65,0.25);
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+    --glow-green: 0 0 20px rgba(0,255,65,0.3), 0 0 40px rgba(0,255,65,0.1);
+    --glow-cyan: 0 0 20px rgba(0,212,255,0.3), 0 0 40px rgba(0,212,255,0.1);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   body{
-    background:var(--paper);
-    color:var(--ink);
+    background:var(--bg);
+    color:var(--text);
     font-family:var(--sans);
-    line-height:1.5;
+    line-height:1.6;
     -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
   }
-  a{color:inherit;}
-  .wrap{max-width:920px; margin:0 auto; padding:0 28px;}
+  a{color:inherit; text-decoration:none;}
+
+  /* grid background */
+  .grid-bg{
+    position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none;
+    background-image:
+      linear-gradient(rgba(0,255,65,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,65,0.03) 1px, transparent 1px),
+      radial-gradient(ellipse at 50% 0%, rgba(0,255,65,0.06) 0%, transparent 60%);
+    background-size: 60px 60px, 60px 60px, 100% 100%;
+  }
+
+  .wrap{max-width:960px; margin:0 auto; padding:0 28px; position:relative; z-index:1;}
 
   /* status bar */
   .statusbar{
     font-family:var(--mono);
     font-size:12px;
     letter-spacing:0.04em;
-    color:var(--teal-soft);
+    color:var(--green);
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:18px 28px;
-    border-bottom:1px solid var(--line);
+    padding:16px 28px;
+    border-bottom:1px solid var(--border);
+    background:rgba(10,14,23,0.8);
+    backdrop-filter:blur(10px);
+    position:sticky; top:0; z-index:100;
   }
+  .statusbar .prompt{color:var(--cyan); margin-right:6px;}
   .statusbar .dot{
     display:inline-block; width:7px; height:7px; border-radius:50%;
-    background:var(--pulse); margin-right:8px;
-    animation:blink 2.4s ease-in-out infinite;
+    background:var(--green); margin-right:8px;
+    animation:blink 2s ease-in-out infinite;
+    box-shadow:0 0 6px var(--green);
   }
-  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.25;}}
+  .statusbar .avail{color:var(--text-dim);}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
 
   /* pulse divider */
-  .pulse-divider{
-    width:100%; height:46px; overflow:hidden; margin:6px 0;
-  }
+  .pulse-divider{width:100%; height:46px; overflow:hidden; margin:6px 0;}
   .pulse-divider svg{width:100%; height:100%; display:block;}
   .pulse-line{
-    fill:none; stroke:var(--pulse); stroke-width:1.6;
+    fill:none; stroke:var(--red); stroke-width:1.6;
     stroke-dasharray:900; stroke-dashoffset:900;
     animation:draw 2.6s ease forwards;
   }
   @keyframes draw{to{stroke-dashoffset:0;}}
 
   /* hero */
-  header.hero{
-    padding:90px 0 70px;
-  }
+  header.hero{padding:100px 0 70px;}
   .eyebrow{
-    font-family:var(--mono); font-size:12px; letter-spacing:0.08em;
-    text-transform:uppercase; color:var(--teal-soft); margin-bottom:22px;
+    font-family:var(--mono); font-size:12px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--green); margin-bottom:24px;
+    display:flex; align-items:center; gap:8px;
   }
+  .eyebrow::before{content:'$'; color:var(--cyan);}
   h1.name{
-    font-family:var(--serif); font-weight:500; font-size:clamp(40px,7vw,68px);
-    line-height:1.05; color:var(--teal); max-width:14ch;
+    font-family:var(--mono); font-weight:700; font-size:clamp(32px,6vw,60px);
+    line-height:1.1; max-width:18ch;
+    background:linear-gradient(135deg, var(--green), var(--cyan));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text;
   }
   .role{
-    font-family:var(--serif); font-style:italic; font-weight:400;
-    font-size:clamp(19px,2.4vw,24px); color:var(--ink); margin-top:16px; max-width:32ch;
+    font-family:var(--mono); font-weight:400;
+    font-size:clamp(16px,2.2vw,20px); color:var(--text-dim); margin-top:16px;
   }
+  .role .cursor{
+    display:inline-block; width:2px; height:1.1em; background:var(--green);
+    margin-left:2px; vertical-align:text-bottom;
+    animation:cursor-blink 1s step-end infinite;
+  }
+  @keyframes cursor-blink{0%,100%{opacity:1;}50%{opacity:0;}}
   .thesis{
-    margin-top:34px; max-width:52ch; font-size:16px; color:var(--ink); opacity:0.85;
+    margin-top:30px; max-width:56ch; font-size:15px; color:var(--text-dim); opacity:0.85;
+    border-left:2px solid var(--green); padding-left:16px;
   }
 
   /* section labels */
   .sec-label{
-    font-family:var(--mono); font-size:12px; letter-spacing:0.08em;
-    text-transform:uppercase; color:var(--pulse); margin-bottom:10px;
+    font-family:var(--mono); font-size:11px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--green); margin-bottom:10px;
+    display:flex; align-items:center; gap:6px;
   }
+  .sec-label::before{content:'//'; color:var(--cyan);}
   section{padding:56px 0;}
   section.projects{padding-top:20px;}
-
   h2.sec-title{
-    font-family:var(--serif); font-weight:500; font-size:clamp(26px,4vw,34px);
-    color:var(--teal); margin-bottom:36px;
+    font-family:var(--mono); font-weight:600; font-size:clamp(22px,3.5vw,30px);
+    color:var(--text); margin-bottom:36px;
   }
 
   /* project cards */
   .project{
-    border-top:1px solid var(--line);
-    padding:40px 0;
-    display:grid;
-    grid-template-columns:1fr 1.5fr;
-    gap:28px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:32px;
+    margin-bottom:20px;
+    background:var(--bg-card);
+    transition:all 0.3s ease;
+    position:relative;
+    overflow:hidden;
   }
-  .project:last-child{border-bottom:1px solid var(--line);}
-  .project-meta{font-family:var(--mono); font-size:12px; color:var(--teal-soft);}
+  .project::before{
+    content:''; position:absolute; top:0; left:0; width:100%; height:2px;
+    background:linear-gradient(90deg, var(--green), var(--cyan));
+    opacity:0; transition:opacity 0.3s ease;
+  }
+  .project:hover{
+    border-color:var(--border-glow);
+    box-shadow:var(--glow-green);
+    transform:translateY(-2px);
+  }
+  .project:hover::before{opacity:1;}
+  .project-meta{font-family:var(--mono); font-size:11px; color:var(--cyan); letter-spacing:0.06em; text-transform:uppercase;}
   .project-meta .tag{
-    display:inline-block; padding:3px 8px; border:1px solid var(--teal-soft);
-    border-radius:3px; margin:2px 6px 2px 0; font-size:11px;
+    display:inline-block; padding:3px 8px; border:1px solid var(--border);
+    border-radius:3px; margin:4px 4px 4px 0; font-size:10px;
+    color:var(--green); background:rgba(0,255,65,0.05);
+    transition:all 0.2s ease;
   }
+  .project:hover .tag{border-color:rgba(0,255,65,0.3);}
   .project-name{
-    font-family:var(--serif); font-size:24px; font-weight:600; color:var(--ink);
+    font-family:var(--mono); font-size:20px; font-weight:600; color:var(--text);
     margin:10px 0 12px;
   }
-  .project-desc{font-size:15px; color:var(--ink); opacity:0.88; margin-bottom:14px;}
+  .project-desc{font-size:14px; color:var(--text-dim); margin-bottom:14px; line-height:1.7;}
   .project-impact{
-    font-family:var(--mono); font-size:13px; color:var(--pulse); border-left:2px solid var(--pulse);
-    padding-left:12px; margin-top:14px;
+    font-family:var(--mono); font-size:12px; color:var(--green);
+    border-left:2px solid var(--green); padding-left:12px; margin-top:14px;
+    background:rgba(0,255,65,0.03); padding:10px 12px; border-radius:0 4px 4px 0;
+    border-left:2px solid var(--green);
   }
   .project-links a{
-    font-family:var(--mono); font-size:13px; text-decoration:underline;
-    text-underline-offset:3px; margin-right:18px; color:var(--teal);
+    font-family:var(--mono); font-size:12px;
+    text-decoration:underline; text-underline-offset:3px;
+    margin-right:18px; color:var(--cyan);
+    transition:color 0.2s ease;
   }
-
-  @media (max-width:720px){
-    .project{grid-template-columns:1fr;}
-  }
+  .project-links a:hover{color:var(--green);}
 
   /* stack */
-  .stack-grid{
-    display:flex; flex-wrap:wrap; gap:10px;
-  }
+  .stack-grid{display:flex; flex-wrap:wrap; gap:10px;}
   .stack-item{
-    font-family:var(--mono); font-size:13px; padding:7px 12px;
-    background:var(--paper-dim); border-radius:3px; color:var(--ink);
+    font-family:var(--mono); font-size:12px; padding:8px 14px;
+    background:var(--bg-card); border:1px solid var(--border); border-radius:4px;
+    color:var(--text-dim); transition:all 0.2s ease; cursor:default;
+  }
+  .stack-item:hover{
+    border-color:var(--border-glow); color:var(--green);
+    box-shadow:var(--glow-green); transform:translateY(-1px);
   }
 
   /* contact */
-  footer{
-    padding:70px 0 60px; border-top:1px solid var(--line);
-  }
+  footer{padding:70px 0 60px; border-top:1px solid var(--border);}
   .contact-title{
-    font-family:var(--serif); font-size:clamp(28px,5vw,42px); color:var(--teal);
-    max-width:16ch; margin-bottom:30px;
+    font-family:var(--mono); font-size:clamp(22px,4vw,32px); color:var(--text);
+    max-width:20ch; margin-bottom:30px;
   }
   .contact-list a{
-    display:block; font-family:var(--mono); font-size:15px; padding:10px 0;
-    border-bottom:1px solid var(--line); text-decoration:none;
+    display:block; font-family:var(--mono); font-size:14px; padding:12px 0;
+    border-bottom:1px solid var(--border); text-decoration:none;
+    transition:all 0.2s ease; color:var(--text-dim);
   }
-  .contact-list a:hover{color:var(--pulse);}
+  .contact-list a:hover{color:var(--green); padding-left:8px;}
   .fine{
-    margin-top:40px; font-family:var(--mono); font-size:11px; color:var(--teal-soft); opacity:0.7;
+    margin-top:40px; font-family:var(--mono); font-size:11px; color:var(--text-dim); opacity:0.5;
   }
 
-  ::selection{background:var(--pulse); color:var(--paper);}
+  /* scroll reveal */
+  .reveal{opacity:0; transform:translateY(30px); transition:all 0.7s cubic-bezier(0.16,1,0.3,1);}
+  .reveal.visible{opacity:1; transform:translateY(0);}
+
+  /* mobile menu */
+  .menu-toggle{
+    display:none; background:none; border:none; cursor:pointer; padding:8px;
+    position:fixed; top:14px; right:28px; z-index:200;
+  }
+  .menu-toggle span{
+    display:block; width:22px; height:2px; background:var(--green); margin:5px 0;
+    transition:all 0.3s ease; border-radius:2px;
+  }
+  .menu-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+  .menu-toggle.active span:nth-child(2){opacity:0;}
+  .menu-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+
+  ::selection{background:var(--green); color:var(--bg);}
+
+  @media (max-width:720px){
+    .statusbar{font-size:10px; padding:12px 16px;}
+    .wrap{padding:0 16px;}
+    header.hero{padding:60px 0 40px;}
+    .menu-toggle{display:block;}
+    .contact-list a{font-size:13px;}
+    .project{padding:24px 20px;}
+  }
 </style>
 </head>
 <body>
 
+<div class="grid-bg"></div>
+
 <div class="statusbar">
-  <span><span class="dot"></span>SISTEMA: OPERACIONAL</span>
-  <span>BR · DISPONÍVEL PARA PROJETOS</span>
+  <span><span class="prompt">user@portfolio</span> <span class="dot"></span>SISTEMA: OPERACIONAL</span>
+  <span class="avail">BR · DISPONÍVEL PARA PROJETOS</span>
 </div>
+
+<button class="menu-toggle" id="menuToggle" aria-label="Menu">
+  <span></span><span></span><span></span>
+</button>
 
 <div class="wrap">
 
   <header class="hero">
-    <div class="eyebrow">Portfólio · Desenvolvimento de Software</div>
-    <h1 class="name">Miquéias Rodrigues Ribeiro</h1>
-    <p class="role">Desenvolvedor formando-se em Engenharia da Computação</p>
-    <p class="thesis">
+    <div class="eyebrow reveal">Portfólio · Desenvolvimento de Software</div>
+    <h1 class="name reveal">Miquéias Rodrigues Ribeiro</h1>
+    <p class="role reveal">Desenvolvedor formando-se em <span id="typingRole"></span><span class="cursor"></span></p>
+    <p class="thesis reveal">
       Construo sistemas para contextos onde erro tem custo real —
-      da distribuição de insulina em posto de saúde à triagem assistida por IA.
+      da distribuição de insulina em posto de saúde à triagem assistida por IA e streaming ao vivo.
       Foco em software que funciona sob pressão, não só na demo.
     </p>
   </header>
@@ -184,69 +267,109 @@
   </div>
 
   <section class="projects">
-    <div class="sec-label">Registro de Sistemas</div>
-    <h2 class="sec-title">Projetos em produção</h2>
+    <div class="sec-label reveal">Registro de Sistemas</div>
+    <h2 class="sec-title reveal">Projetos em produção</h2>
 
-    <div class="project">
+    <!-- CASO 01 -->
+    <div class="project reveal">
+      <div class="project-meta">CASO 01 — SAÚDE PÚBLICA</div>
+      <div class="project-name">Sistema de Distribuição de Insulina</div>
       <div>
-        <div class="project-meta">
-          CASO 01 — SAÚDE PÚBLICA
-        </div>
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">MySQL</span>
       </div>
-      <div>
-        <div class="project-name">Sistema de Distribuição de Insulina</div>
-        <div class="project-meta">
-          <span class="tag">HTML</span>
-          <span class="tag">CSS</span>
-          <span class="tag">JavaScript</span>
-          <span class="tag">MySQL</span>
-        </div>
-        <p class="project-desc">
-          Desenvolvido para um posto de saúde, para agilizar o atendimento e a distribuição
-          de insulina, evitando perda de dados importantes de pacientes. Fui responsável
-          pela tela de cadastro de pacientes e pela listagem de pacientes cadastrados,
-          exibindo dados e status (ativo/inativo) — a base pra equipe saber rapidamente
-          quem está apto a retirar o medicamento.
-        </p>
-        <div class="project-impact">
-          STATUS → em fase de testes · 30 pacientes cadastrados até o momento
-        </div>
-        <div class="project-links" style="margin-top:16px;">
-          <a href="./Imagem/Video Project 1.mp4">Demonstração</a>
-        </div>
+      <p class="project-desc">
+        Desenvolvido para um posto de saúde, para agilizar o atendimento e a distribuição
+        de insulina, evitando perda de dados importantes de pacientes. Fui responsável
+        pela tela de cadastro de pacientes e pela listagem de pacientes cadastrados,
+        exibindo dados e status (ativo/inativo) — a base pra equipe saber rapidamente
+        quem está apto a retirar o medicamento.
+      </p>
+      <div class="project-impact">
+        STATUS → em fase de testes · 30 pacientes cadastrados até o momento
+      </div>
+      <div class="project-links" style="margin-top:16px;">
+        <a href="./Imagem/Video Project 1.mp4">Demonstração</a>
       </div>
     </div>
 
-    <div class="project">
+    <!-- CASO 02 -->
+    <div class="project reveal">
+      <div class="project-meta">CASO 02 — IA APLICADA</div>
+      <div class="project-name">TriagemPRO — Triagem Inteligente de Documentos</div>
       <div>
-        <div class="project-meta">
-          CASO 02 — IA APLICADA
-        </div>
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">Python</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">API Google (IA)</span>
       </div>
+      <p class="project-desc">
+        Sistema voltado a profissionais da saúde, jurídicos e contábeis, pra agilizar
+        o atendimento a clientes e organizar documentos com mais rapidez. A IA analisa
+        cada documento recebido, verifica o grau de urgência, classifica por categoria
+        e gera um resumo automático do conteúdo — o profissional já recebe o documento
+        pré-organizado e sabe o que priorizar antes mesmo de abrir tudo manualmente.
+      </p>
+      <div class="project-impact">
+        META → redução estimada de ~40% no tempo de organização de documentos por atendimento*<br>
+        <span style="font-size:10px; opacity:0.6;">*projeção interna, aguardando validação em uso real</span>
+      </div>
+      <div class="project-links" style="margin-top:16px;">
+        <a href="#">Vídeo demo</a>
+      </div>
+    </div>
+
+    <!-- CASO 03 -->
+    <div class="project reveal">
+      <div class="project-meta">CASO 03 — STREAMING</div>
+      <div class="project-name">StreamTV — App de Streaming</div>
       <div>
-        <div class="project-name">TriagemPRO — Triagem Inteligente de Documentos</div>
-        <div class="project-meta">
-          <span class="tag">HTML</span>
-          <span class="tag">CSS</span>
-          <span class="tag">JavaScript</span>
-          <span class="tag">Python</span>
-          <span class="tag">PostgreSQL</span>
-          <span class="tag">API Google (IA)</span>
-        </div>
-        <p class="project-desc">
-          Sistema voltado a profissionais da saúde, jurídicos e contábeis, pra agilizar
-          o atendimento a clientes e organizar documentos com mais rapidez. A IA analisa
-          cada documento recebido, verifica o grau de urgência, classifica por categoria
-          e gera um resumo automático do conteúdo — o profissional já recebe o documento
-          pré-organizado e sabe o que priorizar antes mesmo de abrir tudo manualmente.
-        </p>
-        <div class="project-impact">
-          META → redução estimada de ~40% no tempo de organização de documentos por atendimento*<br>
-          <span style="font-size:11px; opacity:0.75;">*projeção interna, aguardando validação em uso real</span>
-        </div>
-        <div class="project-links" style="margin-top:16px;">
-          <a href="#">Vídeo demo</a>
-        </div>
+        <span class="tag">React Native</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">Docker</span>
+        <span class="tag">Android</span>
+      </div>
+      <p class="project-desc">
+        App Android para streaming de TV ao vivo, filmes e séries. Sistema completo com
+        auto-atualização via APK, backend Python/FastAPI containerizado com Docker,
+        e interface adaptativa que detecta automaticamente se está rodando em Smart TV,
+        TV Box ou smartphone. Compatível com Android 7.0+.
+      </p>
+      <div class="project-impact">
+        v1.6.0 em produção · 86 canais · Integração TMDB · Auto-update via APK
+      </div>
+      <div class="project-links" style="margin-top:16px;">
+        <a href="#">Vídeo demo</a>
+      </div>
+    </div>
+
+    <!-- CASO 04 -->
+    <div class="project reveal">
+      <div class="project-meta">CASO 04 — ADMINistração</div>
+      <div class="project-name">StreamTV Admin — Painel de Controle</div>
+      <div>
+        <span class="tag">React</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">FastAPI</span>
+        <span class="tag">Docker</span>
+        <span class="tag">TMDB API</span>
+      </div>
+      <p class="project-desc">
+        Painel administrativo para gerenciar todo o ecossistema StreamTV: canais ao vivo,
+        categorias com hierarquia (pai → sub), programação, usuários, filmes e séries.
+        Integração com TMDB para importação automática de metadados e posters.
+        Upload de mídia e controle de permissões em tempo real.
+      </p>
+      <div class="project-impact">
+        CRUD completo · Sub-categorias · Importação TMDB · Upload de mídia
+      </div>
+      <div class="project-links" style="margin-top:16px;">
+        <a href="#">Vídeo demo</a>
       </div>
     </div>
   </section>
@@ -258,24 +381,29 @@
   </div>
 
   <section>
-    <div class="sec-label">Stack</div>
-    <h2 class="sec-title">Ferramentas de trabalho</h2>
-    <div class="stack-grid">
+    <div class="sec-label reveal">Stack</div>
+    <h2 class="sec-title reveal">Ferramentas de trabalho</h2>
+    <div class="stack-grid reveal">
       <span class="stack-item">HTML / CSS</span>
       <span class="stack-item">JavaScript</span>
+      <span class="stack-item">TypeScript</span>
       <span class="stack-item">Python</span>
+      <span class="stack-item">React</span>
+      <span class="stack-item">React Native</span>
+      <span class="stack-item">FastAPI</span>
       <span class="stack-item">MySQL</span>
       <span class="stack-item">PostgreSQL</span>
-      <span class="stack-item">API Google (IA)</span>
       <span class="stack-item">Docker</span>
       <span class="stack-item">Git / GitHub</span>
+      <span class="stack-item">API Google (IA)</span>
+      <span class="stack-item">TMDB API</span>
     </div>
   </section>
 
   <footer>
-    <div class="sec-label">Contato</div>
-    <div class="contact-title">Bora conversar sobre o seu projeto.</div>
-    <div class="contact-list">
+    <div class="sec-label reveal">Contato</div>
+    <div class="contact-title reveal">Bora conversar sobre o seu projeto.</div>
+    <div class="contact-list reveal">
       <a href="https://wa.me/5594992525716" target="_blank">WhatsApp → wa.me/5594992525716</a>
       <a href="https://github.com/MiqRoot" target="_blank">GitHub → https://github.com/MiqRoot</a>
       <a href="https://linkedin.com/in/miqueias-rodrigues-ribeiro" target="_blank">LinkedIn → www.linkedin.com/in/miqueias-rodrigues-ribeiro</a>
@@ -285,6 +413,61 @@
   </footer>
 
 </div>
+
+<script>
+// Typing animation
+const roles = [
+  'Engenharia da Computação',
+  'Desenvolvimento Full Stack',
+  'Sistemas Críticos',
+  'Streaming & APIs'
+];
+let roleIndex = 0, charIndex = 0, isDeleting = false;
+const typingEl = document.getElementById('typingRole');
+
+function typeRole() {
+  const current = roles[roleIndex];
+  if (isDeleting) {
+    typingEl.textContent = current.substring(0, charIndex - 1);
+    charIndex--;
+  } else {
+    typingEl.textContent = current.substring(0, charIndex + 1);
+    charIndex++;
+  }
+
+  let speed = isDeleting ? 40 : 80;
+
+  if (!isDeleting && charIndex === current.length) {
+    speed = 2000;
+    isDeleting = true;
+  } else if (isDeleting && charIndex === 0) {
+    isDeleting = false;
+    roleIndex = (roleIndex + 1) % roles.length;
+    speed = 400;
+  }
+
+  setTimeout(typeRole, speed);
+}
+typeRole();
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Mobile menu toggle
+const menuToggle = document.getElementById('menuToggle');
+menuToggle.addEventListener('click', () => {
+  menuToggle.classList.toggle('active');
+  document.querySelector('.wrap').classList.toggle('menu-open');
+});
+</script>
 
 </body>
 </html>
